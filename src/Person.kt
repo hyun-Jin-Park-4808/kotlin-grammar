@@ -36,3 +36,4 @@ fun getSpecialSkillIf(person: Person): String =
         print(person.division)
         person.division.name
     } else throw RuntimeException()
+
