@@ -1,39 +1,57 @@
-sealed class Person(
+data class Person(
     var name: String,
-    var isMarried: Boolean
+    var age: Int
 )
 
-class Developer(
-    name: String,
-    isMarried: Boolean,
-    val language: String
-): Person(name, isMarried)
-
-class Marketer(
-    name: String,
-    isMarried: Boolean,
-    val division: Division
-) : Person(name, isMarried)
+val persons = listOf(
+    Person("Captain", 44),
+    Person("Cyclops", 35),
+    Person("Deadpool", 31),
+    Person("Iceman", 54),
+    Person("Loki", 54),
+    Person("Hulk", 54),
+)
 
 enum class Division {
     CONTENTS, DIGITAL, BRAND
 }
 
-fun getSpecialSkill(person: Person) =
-    when (person) {
-        // smart cast 덕분에 Developer 추가 형변환 필요 없이 language 프로퍼티 사용
-        is Developer -> person.language
+fun sum(x: Int, y: Int): Int = x + y
+val sumLambda = { x: Int, y: Int -> x + y }
 
-        // smart cast 덕분에 Marketer로 추가 형변환 필요 없이 division 프로퍼티 사용
-        is Marketer -> person.division
-    }
 
-fun getSpecialSkillIf(person: Person): String =
-    if (person is Developer) {
-        println(person.language)
-        person.language // if 문이 식이 되면서 마지막 문장에 return 안 써도 마지막 값이 반환된다.
-    } else if (person is Marketer) {
-        print(person.division)
-        person.division.name
-    } else throw RuntimeException()
+fun main() {
+    println(persons.maxByOrNull { it.age })
+    println(persons.groupBy { it.age })
 
+    // 일반 함수 호출
+    println(sum(12, 34))
+    // 람다 함수 호출
+    println(sumLambda(12, 34))
+    // 람다 수식 바로 실행
+    println({ x: Int, y: Int -> x + y }(12, 34))
+
+    println(persons.filter { it.age > 36 })
+    println(persons
+        .filter { it.age > 36 }
+        .map { "${it.name}'s age is ${it.age}" }
+    )
+    val strings = listOf("abc", "def")
+    println(strings.map { it.toList() })
+    println(strings.map { it.toList() }.flatten())
+    println(strings.flatMap { it.toList() })
+
+    println(
+        persons.map {
+            println(it)
+            it.name
+        }.find { it.startsWith("I") }
+    )
+    println(
+        persons.asSequence()
+            .map {
+                println(it)
+                it.name
+            }.find { it.startsWith("I") }
+    )
+}
