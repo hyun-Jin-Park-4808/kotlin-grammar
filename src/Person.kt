@@ -21,8 +21,8 @@ val sumLambda = { x: Int, y: Int -> x + y }
 
 
 fun main() {
-    println(persons.maxByOrNull { it.age })
-    println(persons.groupBy { it.age })
+    println(personsList.maxByOrNull { it.age })
+    println(personsList.groupBy { it.age })
 
     // 일반 함수 호출
     println(sum(12, 34))
@@ -31,8 +31,8 @@ fun main() {
     // 람다 수식 바로 실행
     println({ x: Int, y: Int -> x + y }(12, 34))
 
-    println(persons.filter { it.age > 36 })
-    println(persons
+    println(personsList.filter { it.age > 36 })
+    println(personsList
         .filter { it.age > 36 }
         .map { "${it.name}'s age is ${it.age}" }
     )
@@ -42,13 +42,13 @@ fun main() {
     println(strings.flatMap { it.toList() })
 
     println(
-        persons.map {
+        personsList.map {
             println(it)
             it.name
         }.find { it.startsWith("I") }
     )
     println(
-        persons.asSequence()
+        personsList.asSequence()
             .map {
                 println(it)
                 it.name

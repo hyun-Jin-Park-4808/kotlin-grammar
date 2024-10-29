@@ -1,14 +1,22 @@
 fun main() {
-    val value: Int = max(5, 3)
-    println("Max value is : $value")
+    val i = 1
+    val l: Long = 100_000_000_000L
+    val ll: Long = i.toLong()
 
-    println("Max value is : ${max(5, 3)}")
+    val nullablePerson: Person? =
+        if (System.currentTimeMillis() % 2 === 0L)
+            Person("Even", 22)
+        else null
 
-//    val person = Person("November", false)
-//    person.name = "new Name"
-//    person.isMarried = true
-//
-//    println("person name : ${person.name}, isMarried: ${person.isMarried}")
+    // if 검사 등으로 특정 영역에서는 not null 타입처럼 사용이 가능하다.
+    if (nullablePerson != null) {
+        println("짝수 시간에만 존재하는 사람의 나이는 : ${nullablePerson.age}")
+    }
+
+    // ?. 호출을 수행: 값이 있는 경우는 호출 결과, 값이 없는 경우는 null
+    println("짝수 시간에만 존재하는 사람의 나이는: ${nullablePerson?.age}")
+
+    // !!. 호출을 수행: 값이 없는 경우 NPE가 발생 => 선호되지 않는다. 이렇게 하지 말기!
+    println("짝수 시간에만 존재하는 사람의 나이는: ${nullablePerson!!.age}")
 }
 
-fun max(a: Int, b: Int): Int = if (a > b) a else b // option + enter 누르면 이렇게 한 줄로 바꿔준다.
